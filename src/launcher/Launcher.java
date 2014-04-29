@@ -81,7 +81,7 @@ public class Launcher {
        // versionManager = new VersionManager();
         
 		//pass in where the file should be located (where it WILL be located for masters)
-        weaver = new Weaver( new NodeInfo[]{new NodeInfo("192.168.62.187",2232)} , 2222 );
+        weaver = new Weaver( new NodeInfo[]{new NodeInfo("107.170.122.137",2232)} , 2242 );
                 
         WeaverOrb orb = new WeaverOrb( SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar", weaver );
 		orb.start();		 

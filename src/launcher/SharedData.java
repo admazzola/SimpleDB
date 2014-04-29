@@ -1,5 +1,6 @@
 package launcher;
 
+import java.io.File;
 import java.net.URI;
 
 public class SharedData {
@@ -11,6 +12,12 @@ public class SharedData {
 	public static final String FILENAME = "sandsofosiris.jar";
 	public static String VERSION = "0.10";
 	
+	public static String getSelfJarPath(){
+		String fullpath = Server.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+		
+		return fullpath.substring(0,fullpath.lastIndexOf("/")+1) ;
+		
+	}
 	
 	private static String getDefaultDirectory() {
 		
