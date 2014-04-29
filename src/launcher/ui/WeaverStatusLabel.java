@@ -11,9 +11,10 @@ public class WeaverStatusLabel extends JLabel{
 		
 		
 		switch(status){
-		case WAITINGFORHASH: label = "Connecting to a Master Node...";	break;
-		case SEEDING: label = "Files are up to date. Uploading to others...";	break;
-		case LEECHING: label = "Downloading files...";	break;
+		case WAITINGFORHASH: label = "Connecting to a Master Node";	break;
+		case SEEDING: label = "Files are up to date, seeding";	break;
+		case LEECHING: label = "Downloading files";	break;
+		case NOTHING: label = "Files are up to date";	break;
 		default: label = "UNKNOWN STATUS";	break;
 						
 		

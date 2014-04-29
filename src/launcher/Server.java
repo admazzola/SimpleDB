@@ -2,6 +2,8 @@ package launcher;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import com.Weaver;
 import com.network.NodeInfo;
@@ -14,19 +16,23 @@ public class Server {
 
 
 	public static void main(String[] args) {
-		new Server();
+		try{
+		new Server();		
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 	
 	
-	public Server(){
+	public Server() throws UnknownHostException{
 		
 		System.out.println("starting server v"+SharedData.VERSION);
 			
 		new File(SharedData.PATH_TO_SERVER_JAR).mkdir();
 		
 		
-
+		//68.43.251.232
 		//put my external IP here, plus the external forwarded port
         weaver = new Weaver( new NodeInfo[]{new NodeInfo("192.168.62.187",2232)} , 2232 );
         

@@ -20,6 +20,8 @@ import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 public class Launcher {
 
@@ -32,8 +34,12 @@ public class Launcher {
 	
 	public static void main(String args[]){
 		launcher = new Launcher();	
-		launcher.initialize();
 		
+		try{
+		launcher.initialize();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 	}
 
@@ -41,7 +47,7 @@ public class Launcher {
 	private Weaver weaver;
 	 
 	 
-	private void initialize() {
+	private void initialize() throws UnknownHostException {
 		
 		new File(SharedData.PATH_TO_CLIENT_JAR).mkdir();
 				
