@@ -9,6 +9,9 @@ import javax.swing.SwingUtilities;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
+import launcher.Launcher;
+import launcher.OutputStreamReader;
+
 
 public class ConsoleTab extends JScrollPane
 {
@@ -25,6 +28,9 @@ public class ConsoleTab extends JScrollPane
     console.setMargin(null);
 
     setViewportView(console);
+    
+   new Thread( new OutputStreamReader(this,Launcher.pos) ).start();
+    
   }
 
 
@@ -49,10 +55,24 @@ public class ConsoleTab extends JScrollPane
     }
     try
     {
-      document.insertString(document.getLength(), line, null);
+      document.insertString(document.getLength(), line+"\n", null);
     } catch (BadLocationException localBadLocationException) {
     }
     if (shouldScroll)
       scrollBar.setValue(2147483647);
+  }
+
+
+
+  public void append(String line) {
+	  print(line);
+	
+	}
+
+
+
+  public void clear() {
+	  console.setText("");
+	
   }
 }

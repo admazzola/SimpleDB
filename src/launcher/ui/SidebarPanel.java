@@ -5,6 +5,9 @@ import java.awt.Dimension;
 import java.awt.Panel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.lang.ProcessBuilder.Redirect;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
@@ -13,6 +16,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.Box.Filler;
 
 import net.miginfocom.swing.MigLayout;
+import launcher.GameLauncher;
 import launcher.Launcher;
 import launcher.SharedData;
 
@@ -46,12 +50,14 @@ public class SidebarPanel extends JPanel
         public void actionPerformed(ActionEvent e)
         {
             //Execute when button is pressed
-            System.out.println("Launching");
-           
+          
+           Launcher.getLogger().log("Launching");
             
+           Launcher.getPanel().getTabPanel().getConsole().clear();
            
-				launch();
-		
+            new Thread(new GameLauncher()).start();
+				
+           Launcher.getPanel().getTabPanel().setSelectedIndex(1);
             
         }
 
@@ -67,20 +73,7 @@ public class SidebarPanel extends JPanel
     createInterface();
   }
   
-  private void launch() {
-	   try {
-		   
-		 //    Runtime.getRuntime().exec(new String[]{"java -jar " + SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar"}) ;
-		     new ProcessBuilder("java", "-Xms1400M", "-jar", SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar").start();
-	 } catch (Exception e) {			
-			e.printStackTrace();
-		}finally{
-			System.exit(0);			
-		}
-	   
-	 
-	  
-}
+
   
   
   

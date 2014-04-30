@@ -19,8 +19,16 @@ import launcher.net.FileClient;
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PipedInputStream;
+import java.io.PipedOutputStream;
+import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -32,8 +40,20 @@ public class Launcher {
 
 	static LauncherFrame launcherFrame;
 	static LauncherPanel launcherPanel;
+	
+	
+	public static PipedOutputStream pos = new PipedOutputStream();
+	public static PrintStream out;
 
 	public static void main(String args[]) {
+		
+		
+		
+		out = new PrintStream(pos,true);
+		
+		//System.setOut(ps);
+		
+		
 		launcher = new Launcher();
 
 		try {
@@ -41,6 +61,9 @@ public class Launcher {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		
+		
 
 	}
 
@@ -77,7 +100,7 @@ public class Launcher {
 
 		try {
 			fileClient = new FileClient(SharedData.SERVERIP, SharedData.SERVERPORT);
-
+			
 			new Thread(fileClient).start();
 
 		} catch (IOException e1) {
@@ -143,6 +166,9 @@ public class Launcher {
 		getPanel().getSidebar().getStatusLabel()
 				.setStatus(fileClient.getStatus());
 
+		
+		customLogger.update();
+		
 		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
@@ -184,4 +210,10 @@ public class Launcher {
 
 	}
 
+	static CustomLogger customLogger = new CustomLogger();
+	public static CustomLogger getLogger() {		
+		return customLogger;
+	}
+	
+	
 }
