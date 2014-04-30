@@ -53,7 +53,7 @@ public void run() {
 	    
 	    textout.println(Launcher.getCheckSum());
 	    Launcher.getLogger().log("sent checksum "+Launcher.getCheckSum()+" at "+System.currentTimeMillis());
-	    
+	    textout.println(SharedData.getOS().getName());
 	    
 	    String serverResponse = textin.readLine();
 	    

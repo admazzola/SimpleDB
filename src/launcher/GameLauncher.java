@@ -30,7 +30,7 @@ public class GameLauncher implements Runnable{
 	            InputStreamReader isr = new InputStreamReader(err);  
 	            BufferedReader br = new BufferedReader(isr);  
 	            String line = "";  
-	            while (! line.toLowerCase().equals("success"))   
+	            while (! line.toLowerCase().startsWith("init"))   
 	            {  
 	            	if(br.ready()){
 	            	line = br.readLine();

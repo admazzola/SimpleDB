@@ -75,20 +75,20 @@ public void run() {
 	
 }
 
-
-public long getFileLength() {
+//send separate files for each OS later on :)
+public long getFileLength(String operatingSystem) {
 	
 	return length;
 }
 
 
-public File getFile() {
+public File getFile(String operatingSystem) {
 
 	return file;
 }
 
 
-public byte[] getBytes() {
+public byte[] getBytes(String operatingSystem) {
 	return bytes;
 }
 
@@ -99,6 +99,8 @@ public boolean isBusy() {
 public void setBusy(boolean busy){
 	this.busy = busy;
 }
+
+
 
 
 }

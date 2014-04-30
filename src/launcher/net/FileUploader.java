@@ -31,6 +31,8 @@ public class FileUploader implements Runnable{
 			 PrintWriter textout = new PrintWriter(socket.getOutputStream() , true);	    
 			
 			 String checksumFromClient = textin.readLine();
+			 String operatingSystem = textin.readLine();
+			 
 			if(checksumFromClient.equals(Server.getCheckSum())){				 
 				 System.out.println("client has file already");
 				textout.println("up to date");
@@ -38,7 +40,7 @@ public class FileUploader implements Runnable{
 				Server.printTimeStamp();
 			    System.out.println("new client already has file");
 			 }else{				 
-				 System.out.println("giving file to client");
+				 System.out.println("giving file to client running "+ operatingSystem);
 				 textout.println("sending new file");
 				
 			 
@@ -48,12 +50,12 @@ public class FileUploader implements Runnable{
 	    
 	  
 	    
-	    textout.println(fileServer.getFileLength());
+	    textout.println(fileServer.getFileLength(operatingSystem));
 	    
 	    //byte[] bytes = new byte[(int) length];
 	    
 	    
-	    FileInputStream fis = new FileInputStream(fileServer.getFile());
+	    FileInputStream fis = new FileInputStream(fileServer.getFile(operatingSystem));
 	    BufferedInputStream bis = new BufferedInputStream(fis);
 	    BufferedOutputStream out = new BufferedOutputStream(socket.getOutputStream());
 
@@ -64,8 +66,8 @@ public class FileUploader implements Runnable{
 	   // }
 
 	    fileServer.setBusy(true);
-	    while ((count = bis.read(fileServer.getBytes())) > 0) {
-	        out.write(fileServer.getBytes(), 0, count);
+	    while ((count = bis.read(fileServer.getBytes(operatingSystem))) > 0) {
+	        out.write(fileServer.getBytes(operatingSystem), 0, count);
 	    }
 	    fileServer.setBusy(false);
 	    
