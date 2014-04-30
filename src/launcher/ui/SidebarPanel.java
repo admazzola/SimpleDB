@@ -23,7 +23,7 @@ public class SidebarPanel extends JPanel
   //private final StatusPanelForm serverStatus;
 	
 	private final LaunchButton launchButton;
-	private final WeaverStatusLabel statusLabel;
+	private final DownloadStatusLabel statusLabel;
 	private final JProgressBar progressBar;
 	
   public SidebarPanel()
@@ -35,7 +35,7 @@ public class SidebarPanel extends JPanel
 
     progressBar = new JProgressBar();
     launchButton = new LaunchButton();
-    statusLabel = new WeaverStatusLabel();
+    statusLabel = new DownloadStatusLabel();
     
     
     
@@ -112,7 +112,7 @@ public class SidebarPanel extends JPanel
 	  return launchButton;
   }
   
-  public WeaverStatusLabel getStatusLabel(){
+  public DownloadStatusLabel getStatusLabel(){
 	  return statusLabel;
   }
 

@@ -2,11 +2,13 @@ package launcher.ui;
 
 import javax.swing.JLabel;
 
-import com.WeaverStatus;
+import launcher.net.DownloadStatus;
 
-public class WeaverStatusLabel extends JLabel{
 
-	public void setStatus(WeaverStatus status) {
+
+public class DownloadStatusLabel extends JLabel{
+
+	public void setStatus(DownloadStatus status) {
 		String label = "";
 		
 		

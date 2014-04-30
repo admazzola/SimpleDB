@@ -10,16 +10,17 @@ import javax.swing.JLabel;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
-import com.Weaver;
-import com.network.NodeInfo;
-import com.orb.WeaverOrb;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.Hashing;
+import com.google.common.io.Files;
 
-import launcher.auth.VersionManager;
+import launcher.net.FileClient;
 
 import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -30,7 +31,6 @@ public class Launcher {
 	static LauncherFrame launcherFrame;
 	static LauncherPanel launcherPanel;
 	
-	public VersionManager versionManager;
 	
 	public static void main(String args[]){
 		launcher = new Launcher();	
@@ -44,7 +44,7 @@ public class Launcher {
 	}
 
 	
-	private Weaver weaver;
+	private FileClient fileClient;
 	 
 	 
 	private void initialize() throws UnknownHostException {
@@ -78,10 +78,24 @@ public class Launcher {
 		//frame.pack();
         frame.setVisible(true);
         
+        
+        
+        
+        try {
+			fileClient = new FileClient("192.168.62.187",2232);
+			
+			new Thread(fileClient).start();
+			
+			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        
        // versionManager = new VersionManager();
         
 		//pass in where the file should be located (where it WILL be located for masters)
-        weaver = new Weaver( new NodeInfo[]{new NodeInfo("107.170.122.137",2232)} , 2242 );
+       /* weaver = new Weaver( new NodeInfo[]{new NodeInfo("107.170.122.137",2232)} , 2242 );
                 
         WeaverOrb orb = new WeaverOrb( SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar", weaver );
 		orb.start();		 
@@ -89,38 +103,53 @@ public class Launcher {
 		//pass in addresses of the master nodes		
 		weaver.registerOrb(orb);
 		weaver.start();
-		
+		*/
 		
 		while(true){
 			update();
 		}
 	}
 	
+	
+	
+	public static String getCheckSum() {
+		try{
+		File file = new File(  SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar" );		
+		HashCode hc = Files.hash(file, Hashing.sha1());
+		return hc.toString();
+		}catch(Exception e){
+			return "nofilefound";
+		}
+	}
+
+
 	boolean readyToLaunch = false;
 	private void update() {
 		
-		if(!readyToLaunch ){
-			if( getWeaver().getIsSeeding()){
+		if(!readyToLaunch){
+			if(fileClient!=null && !fileClient.isFinished()){
 				readyToLaunch = true;
 				getPanel().getSidebar().setReadyToLaunch();  
 				getPanel().getSidebar().getProgressBar().setVisible(false);
 			}else{
 					getPanel().getSidebar().getProgressBar().setVisible(true);
-					getPanel().getSidebar().getProgressBar().setValue((int) (getWeaver().getLeechProgress() * 100) );
-				
+					getPanel().getSidebar().getProgressBar().setValue((int) (fileClient.getProgress() * 100) );
+					System.out.println("setting progress to " + fileClient.getProgress() * 100);
 			}
 		}
 		
-		getPanel().getSidebar().getStatusLabel().setStatus(getWeaver().getStatus());
+		getPanel().getSidebar().getStatusLabel().setStatus(fileClient.getStatus());
+		
+		 try {
+			Thread.sleep(100);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		
 	}
 
 
-	public Weaver getWeaver(){
-	return weaver;
-	}
-	
-	
 	
 	
 	
