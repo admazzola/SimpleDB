@@ -13,6 +13,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.Box.Filler;
 
 import net.miginfocom.swing.MigLayout;
+import launcher.Launcher;
 import launcher.SharedData;
 
 public class SidebarPanel extends JPanel
@@ -123,6 +124,8 @@ public void setReadyToLaunch() {
 }
 
 public void setReadyToLaunchOffline() {
+	if(!Launcher.getCheckSum().equals(Launcher.CHECKSUM_FAIL_MESSAGE))
+	getLaunchButton().setText("Launch Offline");
 	getLaunchButton().setVisible(true);
 	 progressBar.setVisible(false);
 }

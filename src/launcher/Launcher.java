@@ -26,6 +26,8 @@ import java.net.UnknownHostException;
 
 public class Launcher {
 
+	public static final String CHECKSUM_FAIL_MESSAGE = "nofilefound";
+
 	static Launcher launcher;
 
 	static LauncherFrame launcherFrame;
@@ -110,7 +112,7 @@ public class Launcher {
 			HashCode hc = Files.hash(file, Hashing.sha1());
 			return hc.toString();
 		} catch (Exception e) {
-			return "nofilefound";
+			return CHECKSUM_FAIL_MESSAGE;
 		}
 	}
 
