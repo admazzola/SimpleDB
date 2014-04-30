@@ -14,6 +14,7 @@ public class SharedData {
 	//public static final String PATH_TO_SERVER_JAR = getDefaultDirectory() +"\\" +"SandsLauncher" +"\\" ;
 	
 	public static final String FILENAME = "sandsofosiris.jar";
+	public static final int GameMegabyteSize = 2048;
 
 	public static String VERSION = "0.12";
 	
