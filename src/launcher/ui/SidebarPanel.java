@@ -71,7 +71,7 @@ public class SidebarPanel extends JPanel
 	   try {
 		   
 		 //    Runtime.getRuntime().exec(new String[]{"java -jar " + SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar"}) ;
-		     new ProcessBuilder("java",  "-jar", SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar").start();
+		     new ProcessBuilder("java", "-Xms1400M", "-jar", SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar").start();
 	 } catch (Exception e) {			
 			e.printStackTrace();
 		}finally{

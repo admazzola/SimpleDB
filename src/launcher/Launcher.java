@@ -76,7 +76,7 @@ public class Launcher {
 		frame.setVisible(true);
 
 		try {
-			fileClient = new FileClient("192.168.62.187", 2232);
+			fileClient = new FileClient(SharedData.SERVERIP, SharedData.SERVERPORT);
 
 			new Thread(fileClient).start();
 
@@ -85,20 +85,7 @@ public class Launcher {
 			e1.printStackTrace();
 		}
 
-		// versionManager = new VersionManager();
-
-		// pass in where the file should be located (where it WILL be located
-		// for masters)
-		/*
-		 * weaver = new Weaver( new NodeInfo[]{new
-		 * NodeInfo("107.170.122.137",2232)} , 2242 );
-		 * 
-		 * WeaverOrb orb = new WeaverOrb( SharedData.PATH_TO_CLIENT_JAR +
-		 * "sandsofosiris.jar", weaver ); orb.start();
-		 * 
-		 * //pass in addresses of the master nodes weaver.registerOrb(orb);
-		 * weaver.start();
-		 */
+	
 
 		while (true) {
 			update();
