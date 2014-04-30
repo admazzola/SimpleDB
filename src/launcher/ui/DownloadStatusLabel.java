@@ -16,8 +16,9 @@ public class DownloadStatusLabel extends JLabel{
 		case WAITINGFORHASH: label = "Connecting to a Master Node";	break;
 		case SEEDING: label = "Files are up to date, seeding";	break;
 		case LEECHING: label = "Downloading files";	break;
-		case NOTHING: label = "Files are up to date";	break;
-		default: label = "UNKNOWN STATUS";	break;
+		case FINISHED: label = "Files are up to date";	break;
+		case CONNECTIONISSUE: label = "Connection error";	break;
+		default: label = "Attempting to connect";	break;
 						
 		
 		}

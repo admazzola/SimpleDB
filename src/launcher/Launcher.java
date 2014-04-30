@@ -27,150 +27,161 @@ import java.net.UnknownHostException;
 public class Launcher {
 
 	static Launcher launcher;
-	
+
 	static LauncherFrame launcherFrame;
 	static LauncherPanel launcherPanel;
-	
-	
-	public static void main(String args[]){
-		launcher = new Launcher();	
-		
-		try{
-		launcher.initialize();
-		}catch(Exception e){
+
+	public static void main(String args[]) {
+		launcher = new Launcher();
+
+		try {
+			launcher.initialize();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	
 	private FileClient fileClient;
-	 
-	 
+
 	private void initialize() throws UnknownHostException {
-		
+
 		new File(SharedData.PATH_TO_CLIENT_JAR).mkdir();
-				
+
 		LauncherFrame frame = new LauncherFrame();
 		frame.setTitle("Sands Launcher " + SharedData.VERSION);
-        frame.setSize(725,525);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);     
-        frame.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-              System.exit(0);
-            }
-        });
-        
-        
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.getContentPane().setLayout(new BorderLayout());
-        
-        
+		frame.setSize(725, 525);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				System.exit(0);
+			}
+		});
+
+		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
+		frame.getContentPane().setLayout(new BorderLayout());
+
 		launcherPanel = new LauncherPanel();
 		launcherPanel.getSidebar().setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		launcherPanel.getSidebar().setAlignmentX(Component.CENTER_ALIGNMENT);
 		setLookAndFeel();
-		
+
 		frame.getContentPane().add(launcherPanel);
-		
-		//frame.pack();
-        frame.setVisible(true);
-        
-        
-        
-        
-        try {
-			fileClient = new FileClient("192.168.62.187",2232);
-			
+
+		// frame.pack();
+		frame.setVisible(true);
+
+		try {
+			fileClient = new FileClient("192.168.62.187", 2232);
+
 			new Thread(fileClient).start();
-			
-			
+
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-        
-       // versionManager = new VersionManager();
-        
-		//pass in where the file should be located (where it WILL be located for masters)
-       /* weaver = new Weaver( new NodeInfo[]{new NodeInfo("107.170.122.137",2232)} , 2242 );
-                
-        WeaverOrb orb = new WeaverOrb( SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar", weaver );
-		orb.start();		 
-		      
-		//pass in addresses of the master nodes		
-		weaver.registerOrb(orb);
-		weaver.start();
-		*/
-		
-		while(true){
+
+		// versionManager = new VersionManager();
+
+		// pass in where the file should be located (where it WILL be located
+		// for masters)
+		/*
+		 * weaver = new Weaver( new NodeInfo[]{new
+		 * NodeInfo("107.170.122.137",2232)} , 2242 );
+		 * 
+		 * WeaverOrb orb = new WeaverOrb( SharedData.PATH_TO_CLIENT_JAR +
+		 * "sandsofosiris.jar", weaver ); orb.start();
+		 * 
+		 * //pass in addresses of the master nodes weaver.registerOrb(orb);
+		 * weaver.start();
+		 */
+
+		while (true) {
 			update();
 		}
 	}
-	
-	
-	
+
 	public static String getCheckSum() {
-		try{
-		File file = new File(  SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar" );		
-		HashCode hc = Files.hash(file, Hashing.sha1());
-		return hc.toString();
-		}catch(Exception e){
+		try {
+			File file = new File(SharedData.PATH_TO_CLIENT_JAR
+					+ "sandsofosiris.jar");
+			HashCode hc = Files.hash(file, Hashing.sha1());
+			return hc.toString();
+		} catch (Exception e) {
 			return "nofilefound";
 		}
 	}
 
-
 	boolean readyToLaunch = false;
+
 	private void update() {
-		
-		if(!readyToLaunch){
-			if(fileClient!=null && !fileClient.isFinished()){
-				readyToLaunch = true;
-				getPanel().getSidebar().setReadyToLaunch();  
-				getPanel().getSidebar().getProgressBar().setVisible(false);
-			}else{
+
+		if (!readyToLaunch) {
+
+			if (fileClient != null) {
+				
+				if (fileClient.isFinished()) {
+					readyToLaunch = true;
+					getPanel().getSidebar().setReadyToLaunch();
+					getPanel().getSidebar().getProgressBar().setVisible(false);
+				} else {
+					
+					if(fileClient.isErrored()){
+						
+						getPanel().getSidebar().setReadyToLaunchOffline();
+						
+					}else{
+
+						if(fileClient.isDownloading()){
+					
 					getPanel().getSidebar().getProgressBar().setVisible(true);
-					getPanel().getSidebar().getProgressBar().setValue((int) (fileClient.getProgress() * 100) );
-					System.out.println("setting progress to " + fileClient.getProgress() * 100);
+					getPanel().getSidebar().getProgressBar().setValue((int) (fileClient.getProgress() * 100));
+					System.out.println("setting progress to "
+							+ fileClient.getProgress() * 100);
+						}
+						
+						
+						
+					}
+				}
+
 			}
+
 		}
-		
-		getPanel().getSidebar().getStatusLabel().setStatus(fileClient.getStatus());
-		
-		 try {
+
+		getPanel().getSidebar().getStatusLabel()
+				.setStatus(fileClient.getStatus());
+
+		try {
 			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
-		
+		}
+
 	}
 
-
-	
-	
-	
 	private void setLookAndFeel() {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		
+
 		} catch (Exception e) {
 			try {
-				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName() );
-			} catch (Exception f) {			
+				UIManager.setLookAndFeel(UIManager
+						.getCrossPlatformLookAndFeelClassName());
+			} catch (Exception f) {
 				f.printStackTrace();
 			}
 			e.printStackTrace();
 		}
-		
+
 	}
 
-	public static LauncherPanel getPanel(){
-		return launcherPanel;	
-		
+	public static LauncherPanel getPanel() {
+		return launcherPanel;
+
 	}
 
 	public static void println(String s) {
@@ -179,11 +190,9 @@ public class Launcher {
 	}
 
 	public static void setGameUpToDate() {
-		
+
 		Launcher.getPanel().getSidebar().getLaunchButton().setVisible(true);
-		
+
 	}
-	
-	
-	
+
 }

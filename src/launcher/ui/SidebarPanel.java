@@ -101,7 +101,8 @@ public class SidebarPanel extends JPanel
     progressBar.setMaximum(100);
     add(progressBar, "center");
    
-    
+    launchButton.setVisible(false);
+    progressBar.setVisible(false);
     //add(new Filler(new Dimension(0, 0), new Dimension(32767, 10), new Dimension(32767, 10)), BorderLayout.SOUTH);
 
    
@@ -118,6 +119,12 @@ public class SidebarPanel extends JPanel
 
 public void setReadyToLaunch() {
 	getLaunchButton().setVisible(true);
+	 progressBar.setVisible(false);
+}
+
+public void setReadyToLaunchOffline() {
+	getLaunchButton().setVisible(true);
+	 progressBar.setVisible(false);
 }
   
 public JProgressBar getProgressBar() {
