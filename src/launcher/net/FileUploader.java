@@ -73,6 +73,9 @@ public class FileUploader implements Runnable{
 	    
 	    	Server.printTimeStamp();
 	        System.out.println("done writing");
+	        
+	        Thread.sleep(3000);//wait for client to finish up
+	        
 	    out.flush();
 	    out.close();
 	    fis.close();

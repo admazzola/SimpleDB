@@ -18,7 +18,7 @@ public class GameLauncher implements Runnable{
 			 
 			 
 			 //    Runtime.getRuntime().exec(new String[]{"java -jar " + SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar"}) ;
-			   ProcessBuilder pb = new ProcessBuilder("java", "-Xms"+SharedData.GameMegabyteSize+"m", "-jar", SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar");
+			   ProcessBuilder pb = new ProcessBuilder("java", "-Xms"+SharedData.GameMegabyteSizeInit+"m", "-jar", SharedData.PATH_TO_CLIENT_JAR + "sandsofosiris.jar");
 			   pb.redirectOutput(Redirect.PIPE);
 			   pb.redirectError(Redirect.PIPE);
 			   Process p = pb.start();

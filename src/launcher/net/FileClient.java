@@ -86,9 +86,10 @@ public void run() {
 
 	    int count;
 
-	    while ((count = is.read(bytes)) > 0) {
+	    while (is!=null && (count = is.read(bytes)) > 0) {
 	        bos.write(bytes, 0, count);
-	        progress+=(1f / numPackets);
+	        
+	        progress+=(1f / numPackets*0.5f);
 	        Launcher.getLogger().log("got packet of size"+count);
 	    }
 
