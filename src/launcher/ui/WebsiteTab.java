@@ -1,8 +1,10 @@
 package launcher.ui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.net.URL;
 
+import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextPane;
 import javax.swing.event.HyperlinkEvent;
@@ -15,7 +17,7 @@ import launcher.OperatingSystem;
 
 public class WebsiteTab extends JScrollPane{
 
-	JTextPane blog = new JTextPane();
+	JEditorPane blog = new JEditorPane();
 	
 	public WebsiteTab(){
 		

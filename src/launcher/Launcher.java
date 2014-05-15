@@ -30,6 +30,7 @@ import java.io.PipedInputStream;
 import java.io.PipedOutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
+import java.net.URL;
 import java.net.UnknownHostException;
 
 public class Launcher {
@@ -46,7 +47,12 @@ public class Launcher {
 	public static PrintStream out;
 
 	public static void main(String args[]) {
-		
+		  try {
+			UIManager.setLookAndFeel(
+			            UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		
 		out = new PrintStream(pos,true);
@@ -87,6 +93,12 @@ public class Launcher {
 		frame.setLocationRelativeTo(null);
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(new BorderLayout());
+		
+		
+		URL imgURL = getClass().getResource("/launcher/assets/icon64.png");
+		ImageIcon ii = new ImageIcon(imgURL); //Toolkit.getDefaultToolkit().getImage(ii)
+		frame.setIconImage(ii.getImage()); 
+		
 
 		launcherPanel = new LauncherPanel();
 		launcherPanel.getSidebar().setAlignmentY(Component.BOTTOM_ALIGNMENT);

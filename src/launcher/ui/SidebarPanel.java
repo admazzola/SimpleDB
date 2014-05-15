@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.lang.ProcessBuilder.Redirect;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.EmptyBorder;
@@ -20,7 +21,7 @@ import launcher.GameLauncher;
 import launcher.Launcher;
 import launcher.SharedData;
 
-public class SidebarPanel extends JPanel
+public class SidebarPanel extends JPanel  
 {
 
   //private final LoginContainerForm loginForm;
@@ -30,11 +31,37 @@ public class SidebarPanel extends JPanel
 	private final LaunchButton launchButton;
 	private final DownloadStatusLabel statusLabel;
 	private final JProgressBar progressBar;
+	private final JComboBox memoryOptions;
+	
+	
+	String[] memoryStrings = { "", "512m", "1024m", "2048m" };
 	
   public SidebarPanel()
   {
  
 
+	  
+
+		//Create the combo box, select item at index 4.
+		//Indices start at 0, so 4 specifies the pig.
+	 
+	  memoryOptions = new JComboBox(memoryStrings);
+	  memoryOptions.setSelectedIndex(0);
+	  
+	  memoryOptions.addActionListener(new ActionListener() {
+			 
+	        public void actionPerformed(ActionEvent e)
+	        {
+	        	JComboBox cb = (JComboBox)e.getSource();
+	            String memChoice = (String)cb.getSelectedItem();
+	        	
+	        	setMemoryOption(memChoice);
+	        }
+
+			
+	    });    
+		
+		
     int border = 4;
     setBorder(new EmptyBorder(border, border, border, border));
 
@@ -42,7 +69,7 @@ public class SidebarPanel extends JPanel
     launchButton = new LaunchButton();
     statusLabel = new DownloadStatusLabel();
     
-    
+   
     
 	
     launchButton.addActionListener(new ActionListener() {
@@ -78,22 +105,50 @@ public class SidebarPanel extends JPanel
   
   
   
+String lastMemChoice = "";
+  protected void setMemoryOption(String memChoice) {
+	  System.out.println("chose "+memChoice );
+	  lastMemChoice = memChoice;
+}
+  
+  
+  public String getLaunchMemory(){
+	  if(lastMemChoice.equals("")){
+		  return lastMemChoice;
+	  }else{
+		  return "-Xms"+lastMemChoice;
+	  }
+	  
+	  
+  }
 
-  protected void createInterface() {
+
+
+
+
+
+
+protected void createInterface() {
     setLayout(new MigLayout());
     //add(profileSelection);
     //add(serverStatus);
     
-    add(statusLabel, "west");
+    add(statusLabel, "dock west,gapx 20 0");    
+    
+    
+    
    // add(new Panel());
-    add(launchButton, "east");
+    add(launchButton, "dock east,gapx 120 0");
+    
+   
     
     statusLabel.setVisible(true);
+    
     
     progressBar.setVisible(false);
     progressBar.setMinimum(0);
     progressBar.setMaximum(100);
-    add(progressBar, "center");
+    add(progressBar, "dock west,gapx 50 50,width 300");
    
     launchButton.setVisible(false);
     progressBar.setVisible(false);
