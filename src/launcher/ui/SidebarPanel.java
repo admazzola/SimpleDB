@@ -17,7 +17,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.Box.Filler;
 
 import net.miginfocom.swing.MigLayout;
-import launcher.GameLauncher;
 import launcher.Launcher;
 import launcher.SharedData;
 
@@ -29,7 +28,7 @@ public class SidebarPanel extends JPanel
   //private final StatusPanelForm serverStatus;
 	
 	private final LaunchButton launchButton;
-	private final DownloadStatusLabel statusLabel;
+	
 	private final JProgressBar progressBar;
 	private final JComboBox memoryOptions;
 	
@@ -67,34 +66,12 @@ public class SidebarPanel extends JPanel
 
     progressBar = new JProgressBar();
     launchButton = new LaunchButton();
-    statusLabel = new DownloadStatusLabel();
+  
     
    
     
 	
-    launchButton.addActionListener(new ActionListener() {
-		 
-        public void actionPerformed(ActionEvent e)
-        {
-            //Execute when button is pressed
-          
-           Launcher.getLogger().log("Launching");
-            
-           Launcher.getPanel().getTabPanel().getConsole().clear();
-           
-            new Thread(new GameLauncher()).start();
-				
-           Launcher.getPanel().getTabPanel().setSelectedIndex(1);
-            
-        }
-
-		
-    });     
-	
-    //loginForm = new LoginContainerForm();
-    //profileSelection = new ProfileSelection();
-    //serverStatus = new StatusPanelForm();
-
+   
   
     
     createInterface();
@@ -133,7 +110,7 @@ protected void createInterface() {
     //add(profileSelection);
     //add(serverStatus);
     
-    add(statusLabel, "dock west,gapx 20 0");    
+   
     
     
     
@@ -141,8 +118,6 @@ protected void createInterface() {
     add(launchButton, "dock east,gapx 120 0");
     
    
-    
-    statusLabel.setVisible(true);
     
     
     progressBar.setVisible(false);
@@ -158,25 +133,8 @@ protected void createInterface() {
    // add(loginForm);
   }
   
-  public LaunchButton getLaunchButton(){
-	  return launchButton;
-  }
-  
-  public DownloadStatusLabel getStatusLabel(){
-	  return statusLabel;
-  }
 
-public void setReadyToLaunch() {
-	getLaunchButton().setVisible(true);
-	 progressBar.setVisible(false);
-}
 
-public void setReadyToLaunchOffline() {
-	if(!Launcher.getCheckSum().equals(Launcher.CHECKSUM_FAIL_MESSAGE))
-	getLaunchButton().setText("Launch Offline");
-	getLaunchButton().setVisible(true);
-	 progressBar.setVisible(false);
-}
   
 public JProgressBar getProgressBar() {
     return progressBar;

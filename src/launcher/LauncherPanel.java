@@ -33,7 +33,7 @@ public class LauncherPanel extends JPanel{
 	
 	
 	 protected void createInterface() {
-		    tabPanel.getBlog().setPage(SharedData.URL_BLOG);
+		    
 
 		    setLayout(new MigLayout());
 

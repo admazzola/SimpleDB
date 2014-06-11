@@ -9,7 +9,7 @@ import javax.swing.JTabbedPane;
 public class LauncherTabPanel extends JTabbedPane
 {
 
-  private final WebsiteTab blog;
+  private final MainTab blog;
   private final ConsoleTab console;
  // private CrashReportTab crashReportTab;
 
@@ -19,22 +19,22 @@ public class LauncherTabPanel extends JTabbedPane
     
     
 
-    blog = new WebsiteTab();
+    blog = new MainTab();
     console = new ConsoleTab();
 
     createInterface();
   }
 
   protected void createInterface() {
-    addTab("Update Notes", blog);
-    addTab("Development Console", console);
+    addTab("Main", blog);
+    addTab("Console", console);
     //addTab("Profile Editor", new ProfileListTab());
     //addTab("Local Version Editor (NYI)", new VersionListTab());
   }
 
   
 
-  public WebsiteTab getBlog() {
+  public MainTab getBlog() {
     return blog;
   }
 
