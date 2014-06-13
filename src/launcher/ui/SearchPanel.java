@@ -27,6 +27,8 @@ public class SearchPanel extends JPanel
 	  {
 		  
 		  searchField = new JTextField(20);
+		  
+		  
 		
 		  searchButton = new JButton("Search");
 
@@ -36,7 +38,7 @@ public class SearchPanel extends JPanel
 	protected void createInterface() {
 	    setLayout(new MigLayout());
 	    	  
-	    add(searchField);
+	    add(searchField, "pad 10");
 	    
 	    searchButton.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e)
@@ -46,7 +48,7 @@ public class SearchPanel extends JPanel
             }
         });      
 		
-	    add(searchButton, "south, h 40!, w 160!");
+	    add(searchButton, "south, h 40!, w 160!, pad 20 20 20 20");
 	}
 
 	protected void search() {
@@ -73,11 +75,15 @@ public class SearchPanel extends JPanel
 			    s = scan.nextLine();
 			    if(s.indexOf(query)>-1){
 			        //indexfound++; 
+			    	
 			    	Launcher.println("Found match: "+s);
 			    	
 			    	Launcher.getPanel().getTabPanel().setSelectedIndex(1);
 			    }
 			  }
+			 
+			 scan.close();
+			 Launcher.println("Completed search.");
 			 
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block

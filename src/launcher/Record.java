@@ -18,6 +18,15 @@ public class Record {
 		
 	}
 	
+	public Record(String line) {
+		String[] array = line.split(",");
+		
+		this.name=array[0];
+		this.key=array[1];
+		this.data=array[2];
+		this.timestamp=array[3];
+	}
+
 	@Override
 	public String toString(){
 		return name + " : " + key;

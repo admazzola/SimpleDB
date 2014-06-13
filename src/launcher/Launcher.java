@@ -58,7 +58,7 @@ public class Launcher {
 		
 		LauncherFrame frame = new LauncherFrame();
 		frame.setTitle("Simple DB " + SharedData.VERSION);
-		frame.setSize(725, 525);
+		frame.setSize(725, 375);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.addWindowListener(new WindowAdapter() {
 			@Override

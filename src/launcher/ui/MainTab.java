@@ -22,6 +22,7 @@ public class MainTab extends JScrollPane{
 
 	InputPanel input = new InputPanel();
 	SearchPanel search = new SearchPanel();
+	ImportPanel aux = new ImportPanel();
 	JPanel body = new JPanel();
 		
 	public MainTab(){
@@ -31,8 +32,9 @@ public class MainTab extends JScrollPane{
 		setViewportView(body);
 		
 		 
-		body.add(input, "north, h 200!, w 100%");
-		body.add(search, "south, h 200!, w 100%");
+		body.add(input, "north, h 110!, w 100%");
+		body.add(aux, "south, h 150!, w 100%");
+		body.add(search, "south, h 100!, w 100%");
 		
 		
 	}

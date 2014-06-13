@@ -1,8 +1,10 @@
 package launcher;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class DBManager {
 
@@ -35,11 +37,11 @@ public class DBManager {
 			      e.printStackTrace();
 			}
 		    
-		    
-		    
-		    
+		    		    		    
 		    FileWriter fw = new FileWriter(path,true); //the true will append the new data
+		  
 		    fw.write(newRecord.getData() + System.getProperty("line.separator"));//appends the string to the file
+		    
 		    fw.close();
 		}
 		catch(IOException ioe)
@@ -47,6 +49,36 @@ public class DBManager {
 		    System.err.println("IOException: " + ioe.getMessage());
 		}
 		
+		
+	}
+
+	public static void importFile(File file) {
+		
+		
+		 Scanner scan;
+		try {
+			scan = new Scanner(file);
+		
+		
+		 String line;
+		 
+		 Launcher.println("Started import.");
+		    
+		 while (scan.hasNextLine()) 
+		  {
+			 line = scan.nextLine();
+			 
+			 storeRecord( new Record(line) );
+		  }
+		 
+		 Launcher.println("Completed import.");
+		 
+		 scan.close();
+		 
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

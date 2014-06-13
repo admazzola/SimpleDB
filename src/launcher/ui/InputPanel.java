@@ -50,11 +50,11 @@ public class InputPanel extends JPanel
             }
         });      
 			    
-	    add(nameField);
-	    add(keyField);
-	    add(dataField);
-	    add(timestampField);
-	    add(submitButton, "south, h 40!, w 160!");
+	    add(nameField , "pad 10");
+	    add(keyField , "pad 10");
+	    add(dataField , "pad 10");
+	    add(timestampField, "pad 10");
+	    add(submitButton, "south, h 40!, w 160!, pad 20 20 20 20");
 	}
 
 	protected void submitNewRecord() {
